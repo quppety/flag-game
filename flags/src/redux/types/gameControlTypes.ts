@@ -9,6 +9,7 @@ export interface IGameControlState {
   userPoints: number;
   pointsHistory: string[];
   timer: number;
+  error: string;
 }
 
 export type Country = {

@@ -28,6 +28,7 @@ const initialState: IGameControlState = {
   userPoints: 0,
   pointsHistory: [],
   timer: 10,
+  error: '',
 };
 
 const rtkSlice = createSlice({
@@ -59,13 +60,22 @@ const rtkSlice = createSlice({
       state.userPoints = action.payload;
     },
     setPointsHistory(state, action: PayloadAction<number>) {
-      console.log(`${action.payload}`, `${new Date().toDateString()}`);
       state.pointsHistory.push(
         `${action.payload}, ${new Date().toDateString()}`
       );
     },
     setTimer(state, action: PayloadAction<number>) {
       state.timer = action.payload;
+    },
+    setError(state, action) {
+      state.error = action.payload;
+    },
+    finishGame(state) {
+      state.isGameFinished = true;
+      state.isGameRunning = false;
+      state.pointsHistory.push(
+        `${state.userPoints}, ${new Date().toDateString()}`
+      );
     },
     restartGame(state) {
       state.currentCountry = {
@@ -105,5 +115,7 @@ export const {
   setUserPoints,
   setPointsHistory,
   setTimer,
+  setError,
+  finishGame,
   restartGame,
 } = rtkSlice.actions;

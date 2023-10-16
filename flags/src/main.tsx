@@ -4,11 +4,11 @@ import { Provider } from 'react-redux';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
 import { store } from './redux/store.ts';
-import NavBar from './components/NavBar.tsx';
-import Home from './Home.tsx';
-import Score from './components/Score.tsx';
-import Loading from './components/Spinner.tsx';
-import NotFound from './components/NotFound.tsx';
+import NavBar from './components/common/NavBar.tsx';
+import Home from './components/common/Home.tsx';
+import Score from './components/common/Score.tsx';
+import Loading from './components/common/Spinner.tsx';
+import NotFound from './components/common/NotFound.tsx';
 import './index.css';
 
 const router = createBrowserRouter([
