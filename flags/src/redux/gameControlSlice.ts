@@ -66,6 +66,13 @@ const rtkSlice = createSlice({
     setTimer(state, action: PayloadAction<number>) {
       state.timer = action.payload;
     },
+    finishGame(state) {
+      state.isGameFinished = true;
+      state.isGameRunning = false;
+      state.pointsHistory.push(
+        `${state.userPoints}, ${new Date().toDateString()}`
+      );
+    },
     restartGame(state) {
       state.currentCountry = {
         flags: {
@@ -104,5 +111,6 @@ export const {
   setUserPoints,
   setPointsHistory,
   setTimer,
+  finishGame,
   restartGame,
 } = rtkSlice.actions;

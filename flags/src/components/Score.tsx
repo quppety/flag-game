@@ -5,8 +5,8 @@ import {
   Heading,
   StatNumber,
 } from '@chakra-ui/react';
-import { RootState } from '../redux/store';
 import { useAppSelector } from '../redux/types/hooks';
+import { RootState } from '../redux/store';
 
 export default function Score() {
   const { pointsHistory, quizData } = useAppSelector(

@@ -9,19 +9,18 @@ import {
   GridItem,
   Button,
 } from '@chakra-ui/react';
+import { useGameControl } from '../hooks/useGameControl';
 import {
+  finishGame,
   setIsGameFinished,
-  setIsGameRunning,
-  setPointsHistory,
   setTimer,
 } from '../redux/gameControlSlice';
-import { useGameControl } from '../hooks/useGameControl';
 import { useAppDispatch, useAppSelector } from '../redux/types/hooks';
 import { RootState } from '../redux/store';
 
 export default function Question() {
   const { checkAnswer } = useGameControl();
-  const { currentCountry, timer, nameOptions, userPoints } = useAppSelector(
+  const { currentCountry, timer, nameOptions } = useAppSelector(
     (state: RootState) => state.gameControl
   );
 
@@ -91,9 +90,7 @@ export default function Question() {
         </Grid>
         <Button
           onClick={() => {
-            dispatch(setIsGameFinished(true));
-            dispatch(setIsGameRunning(false));
-            dispatch(setPointsHistory(userPoints));
+            dispatch(finishGame());
             setTimeout(() => {
               dispatch(setIsGameFinished(false));
             }, 3000);
