@@ -1,19 +1,14 @@
 import { useEffect } from 'react';
-import {
-  Button,
-  Container,
-  Flex,
-  Heading,
-  Text,
-  Stack,
-} from '@chakra-ui/react';
+import { Container, Heading } from '@chakra-ui/react';
 import { useGameControl } from './hooks/useGameControl';
 import { useAppSelector } from './redux/types/hooks';
 import { RootState } from './redux/store';
 import Question from './components/Question';
+import WelcomeScreen from './components/WelcomeScreen';
+import GameFinishedInfo from './components/GameFinishedInfo';
 
 export default function Home() {
-  const { startGame, fetchGameData } = useGameControl();
+  const { fetchGameData } = useGameControl();
   const { quizData, isGameRunning, userPoints, answered, isGameFinished } =
     useAppSelector((state: RootState) => state.gameControl);
 
@@ -37,53 +32,9 @@ export default function Home() {
           <Question />
         </>
       ) : isGameFinished && answered.length !== 0 ? (
-        <Flex
-          direction={'column'}
-          justifyContent="center"
-          alignItems="center"
-          gap={10}
-        >
-          <Heading
-            as={'h2'}
-            size="1xl"
-            noOfLines={1}
-            textAlign={'center'}
-            marginTop={'20vh'}
-          >
-            That's all the countries!
-          </Heading>
-          <Text textAlign={'center'}>
-            You chose {userPoints} correct countries out of {quizData.length}.
-            Congrats!
-          </Text>
-          <Button onClick={startGame}>Go again</Button>
-        </Flex>
+        <GameFinishedInfo />
       ) : (
-        <Flex
-          alignItems={'center'}
-          justifyContent={'center'}
-          direction={'column'}
-          marginX={'auto'}
-          marginY={'20vh'}
-        >
-          <Stack spacing={6} textAlign={'center'} marginBottom={5}>
-            <Heading as="h1" size="2xl" noOfLines={1} paddingBottom={2}>
-              Guess the Flag
-            </Heading>
-            <Heading as="h2" size="1xl" noOfLines={3}>
-              In this game you will be given a picture of a flag and names of
-              four countries, your task is to piece those together correctly.
-            </Heading>
-            <Heading as="h2" size="1xl" noOfLines={2}>
-              At the end of each round you can check your score and see if
-              you've improved.
-            </Heading>
-            <Heading as="h2" size="1xl" noOfLines={1}>
-              Good Luck!
-            </Heading>
-          </Stack>
-          <Button onClick={startGame}>Play</Button>
-        </Flex>
+        <WelcomeScreen />
       )}
     </Container>
   );
