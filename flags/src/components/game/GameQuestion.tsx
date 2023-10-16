@@ -6,20 +6,16 @@ import {
   Text,
   Image,
   Grid,
-  GridItem,
   Button,
 } from '@chakra-ui/react';
-import { useGameControl } from '../hooks/useGameControl';
-import {
-  finishGame,
-  setIsGameFinished,
-  setTimer,
-} from '../redux/gameControlSlice';
-import { useAppDispatch, useAppSelector } from '../redux/types/hooks';
-import { RootState } from '../redux/store';
+import { useGameControl } from '../../hooks/useGameControl';
+import { setTimer } from '../../redux/gameControlSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/types/hooks';
+import { RootState } from '../../redux/store';
+import GameAnswerOption from './GameAnswerOption';
 
-export default function Question() {
-  const { checkAnswer } = useGameControl();
+export default function GameQuestion() {
+  const { checkAnswer, handleQuitBtn } = useGameControl();
   const { currentCountry, timer, nameOptions } = useAppSelector(
     (state: RootState) => state.gameControl
   );
@@ -65,39 +61,10 @@ export default function Question() {
         <Text textAlign="center">Timer: {timer}</Text>
         <Grid width={310} templateColumns="repeat(2, 1fr)" gap={6}>
           {nameOptions?.map((country) => (
-            <GridItem
-              key={country}
-              border="1px"
-              borderRadius="8px"
-              height={79}
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-            >
-              <Button
-                width="full"
-                height="full"
-                backgroundColor="transparent"
-                textAlign="center"
-                wordBreak="break-word"
-                whiteSpace="normal"
-                onClick={() => checkAnswer(country)}
-              >
-                {country}
-              </Button>
-            </GridItem>
+            <GameAnswerOption key={country} country={country} />
           ))}
         </Grid>
-        <Button
-          onClick={() => {
-            dispatch(finishGame());
-            setTimeout(() => {
-              dispatch(setIsGameFinished(false));
-            }, 3000);
-          }}
-        >
-          Quit
-        </Button>
+        <Button onClick={handleQuitBtn}>Quit</Button>
       </Flex>
     </Container>
   );

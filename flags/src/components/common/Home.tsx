@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { Container, Heading } from '@chakra-ui/react';
-import { useGameControl } from './hooks/useGameControl';
-import { useAppSelector } from './redux/types/hooks';
-import { RootState } from './redux/store';
-import Question from './components/Question';
-import WelcomeScreen from './components/WelcomeScreen';
-import GameFinishedInfo from './components/GameFinishedInfo';
+import { useGameControl } from '../../hooks/useGameControl';
+import { useAppSelector } from '../../redux/types/hooks';
+import { RootState } from '../../redux/store';
+import GameQuestion from '../game/GameQuestion';
+import GameWelcomeScreen from '../game/GameWelcomeScreen';
+import GameFinishedInfo from '../game/GameFinishedInfo';
 
 export default function Home() {
   const { fetchGameData } = useGameControl();
@@ -29,12 +29,12 @@ export default function Home() {
           >
             Points: {userPoints} / {quizData.length}
           </Heading>
-          <Question />
+          <GameQuestion />
         </>
       ) : isGameFinished && answered.length !== 0 ? (
         <GameFinishedInfo />
       ) : (
-        <WelcomeScreen />
+        <GameWelcomeScreen />
       )}
     </Container>
   );

@@ -1,8 +1,8 @@
 import { Button, Flex, Heading, Text } from '@chakra-ui/react';
-import { useGameControl } from '../hooks/useGameControl';
-import { useAppSelector } from '../redux/types/hooks';
-import { RootState } from '../redux/store';
-import ErrorMsg from './ErrorMsg';
+import { useGameControl } from '../../hooks/useGameControl';
+import { useAppSelector } from '../../redux/types/hooks';
+import { RootState } from '../../redux/store';
+import GameErrorMsg from './GameErrorMsg';
 
 export default function GameFinishedInfo() {
   const { startGame } = useGameControl();
@@ -30,7 +30,7 @@ export default function GameFinishedInfo() {
         You chose {userPoints} correct countries out of {quizData.length}.
         Congrats!
       </Text>
-      {error && <ErrorMsg />}
+      {error && <GameErrorMsg />}
       <Button onClick={startGame}>Go again</Button>
     </Flex>
   );

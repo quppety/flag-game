@@ -4,6 +4,7 @@ import {
   setAnswered,
   setCurrentCountry,
   setError,
+  setIsGameFinished,
   setNameOptions,
   setQuizData,
   setTimer,
@@ -71,7 +72,7 @@ export const useGameControl = () => {
    */
   const getCurrentCountry = (): void | string => {
     // Select a random country from the quizData array
-    const randomCountry = quizData[Math.floor(Math.random() * 193)];
+    const randomCountry = quizData[Math.floor(Math.random() * quizData.length)];
     // Check if the selected country has already been answered
     const wasAnswered = answered.filter(
       (country) => country.name.common === randomCountry.name.common
@@ -104,7 +105,8 @@ export const useGameControl = () => {
     for (let i = 0; i < 3; i += 1) {
       let randomCountryData: Country;
       do {
-        randomCountryData = quizData[Math.floor(Math.random() * 193)];
+        randomCountryData =
+          quizData[Math.floor(Math.random() * quizData.length)];
       } while (
         threeRandomCountries.some(
           (country) => country.name.common === randomCountryData.name.common
@@ -194,9 +196,23 @@ export const useGameControl = () => {
     }
   };
 
+  /**
+   * Handles the quit button click event.
+   * Finishes the game, after a delay, resets the game state
+   * to indicate it's not finished to return the user to the welcome screen.
+   * @returns {void}
+   */
+  const handleQuitBtn = (): void => {
+    dispatch(finishGame());
+    setTimeout(() => {
+      dispatch(setIsGameFinished(false));
+    }, 3000);
+  };
+
   return {
     startGame,
     fetchGameData,
     checkAnswer,
+    handleQuitBtn,
   };
 };

@@ -5,8 +5,8 @@ import {
   Heading,
   StatNumber,
 } from '@chakra-ui/react';
-import { useAppSelector } from '../redux/types/hooks';
-import { RootState } from '../redux/store';
+import { useAppSelector } from '../../redux/types/hooks';
+import { RootState } from '../../redux/store';
 
 export default function Score() {
   const { pointsHistory, quizData } = useAppSelector(
@@ -19,7 +19,7 @@ export default function Score() {
         <>
           <Heading
             as={'h2'}
-            size="xl"
+            size="1xl"
             noOfLines={1}
             textAlign={'center'}
             marginY={'5vh'}

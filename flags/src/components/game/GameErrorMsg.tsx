@@ -1,8 +1,8 @@
 import { Heading } from '@chakra-ui/react';
-import { useAppSelector } from '../redux/types/hooks';
-import { RootState } from '../redux/store';
+import { useAppSelector } from '../../redux/types/hooks';
+import { RootState } from '../../redux/store';
 
-export default function ErrorMsg() {
+export default function GameErrorMsg() {
   const { error } = useAppSelector((state: RootState) => state.gameControl);
 
   return (

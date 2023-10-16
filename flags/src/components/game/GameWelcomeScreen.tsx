@@ -1,10 +1,10 @@
 import { Button, Flex, Heading, Stack } from '@chakra-ui/react';
-import { useGameControl } from '../hooks/useGameControl';
-import { useAppSelector } from '../redux/types/hooks';
-import { RootState } from '../redux/store';
-import ErrorMsg from './ErrorMsg';
+import { useGameControl } from '../../hooks/useGameControl';
+import { useAppSelector } from '../../redux/types/hooks';
+import { RootState } from '../../redux/store';
+import GameErrorMsg from './GameErrorMsg';
 
-export default function WelcomeScreen() {
+export default function GameWelcomeScreen() {
   const { startGame } = useGameControl();
   const { error } = useAppSelector((state: RootState) => state.gameControl);
   return (
@@ -31,7 +31,7 @@ export default function WelcomeScreen() {
           Good Luck!
         </Heading>
       </Stack>
-      {error && <ErrorMsg />}
+      {error && <GameErrorMsg />}
       <Button onClick={startGame}>Play</Button>
     </Flex>
   );
