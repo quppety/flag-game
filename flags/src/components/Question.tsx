@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {
   Container,
   Flex,
@@ -8,14 +9,15 @@ import {
   GridItem,
   Button,
 } from '@chakra-ui/react';
-import { useAppDispatch, useAppSelector } from '../redux/types/hooks';
-import { RootState } from '../redux/store';
 import {
   setIsGameFinished,
   setIsGameRunning,
   setPointsHistory,
+  setTimer,
 } from '../redux/gameControlSlice';
 import { useGameControl } from '../hooks/useGameControl';
+import { useAppDispatch, useAppSelector } from '../redux/types/hooks';
+import { RootState } from '../redux/store';
 
 export default function Question() {
   const { checkAnswer } = useGameControl();
@@ -24,6 +26,22 @@ export default function Question() {
   );
 
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const timerOut = setInterval(() => {
+      if (timer === 0) {
+        checkAnswer('');
+        clearInterval(timerOut);
+      } else {
+        dispatch(setTimer(timer - 1));
+      }
+    }, 1000);
+
+    return () => {
+      clearInterval(timerOut);
+    };
+  }, [currentCountry, timer]);
+
   return (
     <Container width="100%" maxWidth="container.xl" marginTop={10}>
       <Flex
@@ -76,6 +94,9 @@ export default function Question() {
             dispatch(setIsGameFinished(true));
             dispatch(setIsGameRunning(false));
             dispatch(setPointsHistory(userPoints));
+            setTimeout(() => {
+              dispatch(setIsGameFinished(false));
+            }, 3000);
           }}
         >
           Quit

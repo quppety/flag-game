@@ -7,6 +7,7 @@ import {
   setNameOptions,
   setPointsHistory,
   setQuizData,
+  setTimer,
   setUserPoints,
 } from '../redux/gameControlSlice';
 import { useAppDispatch, useAppSelector } from '../redux/types/hooks';
@@ -25,7 +26,6 @@ export const useGameControl = () => {
       (country) => country.name.common === randomCountry.name.common
     );
     if (wasAnswered.length === 0) {
-      console.log(randomCountry.name.common);
       dispatch(setCurrentCountry(randomCountry));
       dispatch(setAnswered(randomCountry));
       return randomCountry.name.common;
@@ -98,9 +98,11 @@ export const useGameControl = () => {
       dispatch(setUserPoints(userPoints + 1));
       const currCountryName = await getCurrentCountry();
       await getThreeRandomCountryNames(currCountryName);
+      dispatch(setTimer(10));
     } else {
       const currCountryName = await getCurrentCountry();
       await getThreeRandomCountryNames(currCountryName);
+      dispatch(setTimer(10));
     }
   };
 

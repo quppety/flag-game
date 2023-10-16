@@ -59,7 +59,6 @@ const rtkSlice = createSlice({
       state.userPoints = action.payload;
     },
     setPointsHistory(state, action: PayloadAction<number>) {
-      console.log(`${action.payload}`, `${new Date().toDateString()}`);
       state.pointsHistory.push(
         `${action.payload}, ${new Date().toDateString()}`
       );

@@ -67,7 +67,7 @@ export default function Home() {
           marginY={'20vh'}
         >
           <Stack spacing={6} textAlign={'center'} marginBottom={5}>
-            <Heading as="h1" size="2xl" noOfLines={1}>
+            <Heading as="h1" size="2xl" noOfLines={1} paddingBottom={2}>
               Guess the Flag
             </Heading>
             <Heading as="h2" size="1xl" noOfLines={3}>
